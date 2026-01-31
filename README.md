@@ -73,7 +73,97 @@ Client-server chat applications are versatile tools that facilitate real-time co
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
 
+## Algorithm:
+### Server:
+1.Start the program.
 
+2.Create a TCP socket.
+
+3.Bind the socket to a port number and all available IP addresses.
+
+4.Listen for incoming client connections.
+
+5.Accept the client connection.
+
+6.Receive the message sent by the client.
+
+7.Display the received message.
+
+8.Send a response message to the client.
+
+9.Repeat steps 6 to 8 until the client sends “exit”.
+
+10.Close the client socket and server socket.
+
+11.Stop the program.
+
+### Client:
+1.Start the program.
+
+2.Create a TCP socket.
+
+3.Specify the server IP address and port number.
+
+4.Connect the client socket to the server.
+
+5.Read the message from the user.
+
+6.Send the message to the server.
+
+7.Receive the reply from the server.
+
+8.Display the server reply.
+
+9.Repeat steps 5 to 8 until the user enters “exit”.
+
+10.Close the client socket.
+
+11.Stop the program.
+
+## Program:
+### Server.py
+```
+import socket             
+s = socket.socket()         
+print ("Socket successfully created")
+port = 12345                
+s.bind(('', port))         
+print ("socket binded to %s" %(port)) 
+s.listen(5)     
+print ("socket is listening")    
+c, addr = s.accept()         
+while True: 
+  message = c.recv(1024).decode()
+  print("Client:", message)
+  if message.lower() == "exit":
+    break
+  reply = input("Server: ")
+  c.send(reply.encode())
+c.close()
+
+```
+### Client.py:
+```
+import socket
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(("127.0.0.1", 12345  ))
+print("Connected to server")
+
+while True:
+    message = input("Client: ")
+    client_socket.send(message.encode())
+
+    if message.lower() == "exit":
+        break
+    reply = client_socket.recv(1024).decode()
+    print("Server:", reply)
+client_socket.close()
+
+```
+
+## Output:
+![alt text](image.png)
+![alt text](image-1.png)
 ## Result:
 
 Thus the study on Client Server Chat Applications has been performed
